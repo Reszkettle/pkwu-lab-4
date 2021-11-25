@@ -1,35 +1,12 @@
 from typing import Optional
 from fastapi import FastAPI
-from dataclasses import dataclass
-from enum import Enum
 import requests as req
 import csv
 import json
 import io
 import xmltodict
 import utils
-
-
-class AnalysisFormat(str, Enum):
-    JSON = "json"
-    XML = "xml"
-    CSV = "csv"
-    TEXT = "text"
-
-
-@dataclass
-class InAnalyseString:
-    firstConversionFormat: AnalysisFormat
-    outputFormat: AnalysisFormat
-    string: str
-    substring: Optional[str] = None
-
-
-@dataclass
-class InFormatAnalysedString:
-    input_format: AnalysisFormat
-    output_format: AnalysisFormat
-    analysis: str
+from schemas import *
 
 
 EXTERNAL_ENDPOINT = 'http://127.0.0.1:8002/analyse-string'
@@ -92,13 +69,13 @@ def format_to_json(analysis_string: str, format: AnalysisFormat) -> dict:
 app = FastAPI()
 
 
-@ app.post(path="/analyse-string")
+@app.post(path="/analyse-string")
 async def analyse_string(request: InAnalyseString):
     output_str = process_request(request)
     return output_str
 
 
-@ app.post(path="/format-analysed-string")
+@app.post(path="/format-analysed-string")
 async def format_analysed_string(request: InFormatAnalysedString):
     output_str = format_analysis(request)
     return output_str
