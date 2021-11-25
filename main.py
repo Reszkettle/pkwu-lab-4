@@ -49,7 +49,7 @@ def process_request(request: InAnalyseString):
 def format_analysis(request: InFormatAnalysedString):
 
     if request.input_format == request.output_format:
-        return request.analysis.strip('"')
+        return request.analysis.strip('"').replace("\\", "")
 
     json_dict = format_to_json(request.analysis, request.input_format)
     if request.output_format == AnalysisFormat.CSV:
@@ -73,6 +73,12 @@ def format_to_json(analysis_string: str, format: AnalysisFormat) -> dict:
         values = [int(v) for v in val_keys.split(',') if v != 'None']
         return dict(zip(keys, values))
     elif format == AnalysisFormat.XML:
+        data = xmltodict.parse(analysis_string.strip('"').replace("\\", ""))[
+            'string-analyze-statistics']
+        if not data['substring_occurrences_count']:
+            del data['substring_occurrences_count']
+        return {key: int(value) for (
+            key, value) in data.items()}
         return xmltodict.parse(analysis_string.strip('"').replace("\\", ""))['string-analyze-statistics']
     else:
         d = dict()
