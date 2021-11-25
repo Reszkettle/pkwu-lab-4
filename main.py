@@ -49,7 +49,7 @@ def process_request(request: InAnalyseString):
 def format_analysis(request: InFormatAnalysedString):
 
     if request.input_format == request.output_format:
-        return request.analysis
+        return request.analysis.strip('"')
 
     json_dict = format_to_json(request.analysis, request.input_format)
     if request.output_format == AnalysisFormat.CSV:
@@ -73,7 +73,7 @@ def format_to_json(analysis_string: str, format: AnalysisFormat) -> dict:
         values = [int(v) for v in val_keys.split(',') if v != 'None']
         return dict(zip(keys, values))
     elif format == AnalysisFormat.XML:
-        pass
+        return xmltodict.parse(analysis_string.strip('"').replace("\\", ""))['string-analyze-statistics']
     else:
         d = dict()
         for key_val in analysis_string.strip('"').split(', '):
@@ -86,13 +86,13 @@ def format_to_json(analysis_string: str, format: AnalysisFormat) -> dict:
 app = FastAPI()
 
 
-@app.post(path="/analyse-string")
+@ app.post(path="/analyse-string")
 async def analyse_string(request: InAnalyseString):
     output_str = process_request(request)
     return output_str
 
 
-@app.post(path="/format-analysed-string")
+@ app.post(path="/format-analysed-string")
 async def format_analysed_string(request: InFormatAnalysedString):
     output_str = format_analysis(request)
     return output_str
