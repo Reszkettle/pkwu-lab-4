@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fc0caf1b9bf813448116383af57f91f2361eaf29be34eb0e365aee14b8c48c3e"
+            "sha256": "c0e2f8e9ff96a9a0171da0d22e6727d5c203f63f6fa57d8b28276553992b42e4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -61,6 +61,13 @@
                 "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"
             ],
             "version": "==0.4.4"
+        },
+        "dicttoxml": {
+            "hashes": [
+                "sha256:ea44cc4ec6c0f85098c57a431a1ee891b3549347b07b7414c8a24611ecf37e45"
+            ],
+            "index": "pypi",
+            "version": "==1.7.4"
         },
         "dnspython": {
             "hashes": [
@@ -482,6 +489,14 @@
                 "sha256:e4819c6fb4f336fd5388372cb556b1f3a165f3f68e66913d1a2fc1de55dc6f58"
             ],
             "version": "==10.1"
+        },
+        "xmltodict": {
+            "hashes": [
+                "sha256:50d8c638ed7ecb88d90561beedbf720c9b4e851a9fa6c47ebd64e99d166d8a21",
+                "sha256:8bbcb45cc982f48b2ca8fe7e7827c5d792f217ecf1792626f808bf41c3b86051"
+            ],
+            "index": "pypi",
+            "version": "==0.12.0"
         }
     },
     "develop": {}
