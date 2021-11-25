@@ -11,8 +11,11 @@ def csv_string_from_dict(data: dict) -> str:
 
 
 def text_from_dict(data: dict) -> str:
-    pass
+    entries_str_list = []
+    for key, value in data.items():
+        entries_str_list.append(f"{key}: {value}")
+    return ', '.join(entries_str_list)
 
 
 def xml_from_dict(data: dict) -> str:
-    pass
+    return dicttoxml(data, custom_root='string-analyze-statistics', attr_type=False)
