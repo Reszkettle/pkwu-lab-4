@@ -1,9 +1,7 @@
 from typing import Optional
 from fastapi import FastAPI
 import requests as req
-import csv
 import json
-import io
 import xmltodict
 import utils
 from schemas import *
