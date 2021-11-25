@@ -2,6 +2,7 @@ from typing import Optional
 from fastapi import FastAPI
 from dataclasses import dataclass
 from enum import Enum
+import requests as req
 
 
 class AnalysisFormat(str, Enum):
@@ -26,11 +27,19 @@ class InFormatAnalysedString:
     analysis: str
 
 
+EXTERNAL_ENDPOINT = 'http://127.0.0.1:8002/analyse-string'
+
+
 def process_request(request: InAnalyseString):
-    pass
+    response = req.post(EXTERNAL_ENDPOINT, json={
+        "string": request.string, "substring": request.substring, "format": request.firstConversionFormat})
+    if response.status_code == 200:
+        analysis_string = response.json()
+        format_analysis(analysis_string,
+                        request.firstConversionFormat, request.outputFormat)
 
 
-def format_analysis(request: InFormatAnalysedString):
+def format_analysis(analysis_string: str, input_format: str, output_format: str):
     pass
 
 
